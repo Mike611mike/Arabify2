@@ -1,0 +1,44 @@
+name: Build APK
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Install Cordova
+        run: npm install -g cordova
+
+      - name: Create Cordova project
+        run: |
+          cordova create arabify-funland com.mike611mike.arabifyfunland ArabifyFunland
+          cd arabify-funland
+          cordova platform add android
+
+      - name: Copy web app files
+        run: |
+          cp -r ../* www/
+          rm -rf www/.github
+
+      - name: Build APK
+        run: |
+          cd arabify-funland
+          cordova build android --release
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v3
+        with:
+          name: arabify-funland.apk
+          path: arabify-funland/platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk
