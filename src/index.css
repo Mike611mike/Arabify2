@@ -1,0 +1,172 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Arabic:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Dark mode variables (default) - brightened up */
+    --background: 240 30% 15%;
+    --foreground: 0 0% 100%;
+
+    --card: 240 30% 18%;
+    --card-foreground: 0 0% 100%;
+
+    --popover: 240 30% 18%;
+    --popover-foreground: 0 0% 100%;
+
+    --primary: 267 91% 65%;  /* Purple */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 240 23% 25%;  /* Lighter secondary */
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 240 23% 25%;
+    --muted-foreground: 210 40% 96.1%;  /* Brighter muted text */
+
+    --accent: 300 94% 70%;  /* Brighter magenta */
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 240 23% 25%;
+    --input: 240 23% 25%;
+    --ring: 267 91% 65%;
+
+    --radius: 0.5rem;
+  }
+
+  /* Light mode colors - more vibrant with better contrast */
+  .light {
+    --background: 210 50% 98%;
+    --foreground: 240 10% 3.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+
+    --primary: 267 91% 55%;  /* Slightly darker purple for better contrast */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 240 10% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+
+    --muted: 240 10% 95.9%;
+    --muted-foreground: 240 3.8% 35%;  /* Darker muted text for better contrast */
+
+    --accent: 300 94% 60%;  /* Slightly darker magenta for better contrast */
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 267 91% 55%;
+  }
+
+  * {
+    @apply border-border;
+  }
+  
+  /* Dark mode styling - enhanced colorful gradient background */
+  body {
+    @apply bg-background text-foreground font-sans;
+    background-image: linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(76, 29, 149, 0.6)), 
+                      radial-gradient(circle at top left, rgba(249, 115, 22, 0.2), transparent 70%),
+                      radial-gradient(circle at bottom right, rgba(219, 39, 119, 0.2), transparent 70%);
+    min-height: 100vh;
+  }
+
+  /* Light mode styling - completely different background */
+  .light body {
+    @apply bg-white text-slate-900;
+    background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(249, 250, 251, 0.9)),
+                      radial-gradient(circle at top right, rgba(167, 139, 250, 0.3), transparent 70%),
+                      radial-gradient(circle at bottom left, rgba(251, 113, 133, 0.2), transparent 70%);
+  }
+
+  html {
+    overflow-x: hidden;
+  }
+
+  /* Card styling for dark mode with enhanced shadow */
+  .glass-card {
+    @apply bg-spotify-light bg-opacity-90 backdrop-filter backdrop-blur-md;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 4px 12px rgba(139, 92, 246, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  }
+
+  /* Card styling for light mode with enhanced shadow */
+  .light .glass-card {
+    @apply bg-white bg-opacity-90;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), 0 4px 16px rgba(139, 92, 246, 0.15), 0 0 0 1px rgba(139, 92, 246, 0.05);
+  }
+
+  .arabic-text {
+    @apply font-arabic text-right;
+    direction: rtl;
+  }
+
+  /* Enhanced contrast for light mode */
+  .light .text-spotify-text {
+    @apply text-gray-800;  /* Darker text for better readability */
+  }
+
+  .light .text-spotify-white {
+    @apply text-gray-900;
+  }
+
+  .page-transition-enter {
+    @apply opacity-0;
+  }
+  
+  .page-transition-enter-active {
+    @apply opacity-100 transition-opacity duration-300;
+  }
+  
+  .page-transition-exit {
+    @apply opacity-100;
+  }
+  
+  .page-transition-exit-active {
+    @apply opacity-0 transition-opacity duration-300;
+  }
+}
+
+@layer components {
+  .hover-scale {
+    @apply transition-transform duration-200 hover:scale-[1.03];
+  }
+
+  /* Dark mode buttons - brighter */
+  .spotify-button {
+    @apply px-6 py-3 bg-spotify-green text-white font-semibold rounded-full 
+           hover:bg-opacity-80 transition-all duration-200 focus:outline-none;
+    box-shadow: 0 8px 16px rgba(139, 92, 246, 0.5), 0 2px 4px rgba(139, 92, 246, 0.2);
+  }
+
+  /* Light mode buttons remain the same for brand consistency */
+  .light .spotify-button {
+    @apply px-6 py-3 bg-spotify-green text-white font-semibold rounded-full 
+           hover:bg-opacity-80 transition-all duration-200 focus:outline-none;
+    box-shadow: 0 8px 16px rgba(139, 92, 246, 0.3), 0 2px 4px rgba(139, 92, 246, 0.1);
+  }
+
+  /* Dark mode cards with enhanced shadow and brightness */
+  .spotify-card {
+    @apply bg-spotify-light rounded-lg p-5 hover:bg-opacity-80 
+           transition-all duration-200 ease-in-out hover-scale;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3), 0 8px 16px rgba(139, 92, 246, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  }
+
+  /* Light mode cards with enhanced shadow */
+  .light .spotify-card {
+    @apply bg-white border border-gray-100;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08), 0 8px 16px rgba(139, 92, 246, 0.15), 0 0 0 1px rgba(139, 92, 246, 0.05);
+  }
+}

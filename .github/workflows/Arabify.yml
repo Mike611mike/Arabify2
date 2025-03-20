@@ -1,0 +1,34 @@
+name: Build APK
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build Love2D APK
+        uses: love-actions/love-actions-android@v1.1.3
+        with:
+          love-package: ./game.love   # Ensure your .love file exists!
+          app-name: 'Arabify'
+          bundle-id: com.mike.arabify
+          version-string: 1.0.3
+          version-code: 100
+          output-folder: ./build
+          # Keystore signing (if needed):
+          keystore-base64: ${{ secrets.KEYSTORE_BASE64 }}
+          keystore-alias: ${{ secrets.KEYSTORE_ALIAS }}
+          keystore-key-password: ${{ secrets.KEYSTORE_PASSWORD }}
+          keystore-store-password: ${{ secrets.KEYSTORE_PASSWORD }}
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v3
+        with:
+          name: arabify.apk
+          path: ./build/*.apk

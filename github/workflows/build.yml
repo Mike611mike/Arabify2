@@ -1,0 +1,29 @@
+name: Build APK
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build Love2D APK
+        uses: love-actions/love-actions-android@v1.1.3
+        with:
+          love-package: ./game.love   # MUST exist in your repo's root!
+          app-name: "Arabify"
+          bundle-id: com.mike.arabify
+          version-string: 1.0.0
+          version-code: 100
+          output-folder: ./build
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v3
+        with:
+          name: arabify.apk
+          path: ./build/*.apk
